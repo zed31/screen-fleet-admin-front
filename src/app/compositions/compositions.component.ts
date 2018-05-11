@@ -11,6 +11,7 @@ import { DBInterface } from '../dbif';
 export class CompositionsComponent implements OnInit {
 
   compositions: Composition[] = null;
+  compositionDetail = 'composition';
 
   constructor(private compositionService: CompositionService) { }
 
