@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TvService } from '../tv.service';
+import { TV } from '../tv';
 
 @Component({
   selector: 'app-tvs',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TvsComponent implements OnInit {
 
-  constructor() { }
+  tvs: TV[] = null;
+  selectedTV: TV = null;
+
+  constructor(private tvService: TvService) { }
+
+  getTvs(): void {
+    this.tvService
+        .getTVList()
+        .subscribe(tvs => this.tvs = tvs);
+  }
+
+  onSelect(tv: TV): void {
+    this.selectedTV = tv;
+  }
 
   ngOnInit() {
+    this.getTvs();
   }
 
 }

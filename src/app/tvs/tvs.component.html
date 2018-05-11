@@ -1,3 +1,8 @@
-<p>
-  tvs works!
-</p>
+<h2>My TVS</h2>
+<ul class="tvs">
+  <li *ngFor="let tv of tvs"
+    [class.selected]="tv === selectedTv"
+    (click)="onSelect(tv)">
+    <span class="badge">{{tv.RawId}}</span> {{tv.Name}}
+  </li>
+</ul>
