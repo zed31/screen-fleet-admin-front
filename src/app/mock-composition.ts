@@ -6,20 +6,20 @@ export const COMPOSITIONS: Composition[] = [
         Name: 'First composition',
         InsertionDate: new Date(),
         UpdateTime: new Date(),
-        HtmlContent: '<h1>Hello World!</h1>'
+        HtmlContent: '<div id="first-data-inside" style="display: grid" ><div style="one" >Hello World!</div ></div >'
     },
     {
         RawId: '2',
         Name: 'Second composition',
         InsertionDate: new Date(),
         UpdateTime: new Date(),
-        HtmlContent: '<h1>Hello World!</h1>'
+        HtmlContent: '<div id="first-data-inside" style="display: grid"> <h1>Hello World!</h1> </div>'
     },
     {
         RawId: '3',
         Name: 'Third composition',
         InsertionDate: new Date(),
         UpdateTime: new Date(),
-        HtmlContent: '<h1>Hello World!</h1>'
+        HtmlContent: '<div id="first-data-inside" style="display: grid"> <h1>Hello World!</h1> </div>'
     }
 ];

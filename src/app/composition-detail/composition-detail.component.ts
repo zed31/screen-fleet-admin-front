@@ -3,6 +3,7 @@ import { CompositionService } from '../composition.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Composition } from '../composition';
+import { CompositionSerializerService } from '../composition-serializer.service';
 
 @Component({
   selector: 'app-composition-detail',
@@ -12,9 +13,12 @@ import { Composition } from '../composition';
 export class CompositionDetailComponent implements OnInit {
 
   composition: Composition = null;
+  htmlInnerData = '';
+  htmlData = '';
 
   constructor(
     private compositionService: CompositionService,
+    private compositionSerializer: CompositionSerializerService,
     private route: ActivatedRoute,
     private location: Location
   ) { }
@@ -23,10 +27,15 @@ export class CompositionDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.compositionService
         .getComposition(id)
-        .subscribe(c => this.composition = c);
+        .subscribe(c => {
+          this.composition = c;
+          this.htmlData = this.composition.HtmlContent;
+          this.compositionSerializer.generateCompositionData(this.htmlData);
+        });
   }
 
   ngOnInit() {
+    this.getComposition();
   }
 
 }

@@ -11,6 +11,7 @@ import { CompositionsComponent } from './compositions/compositions.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { ScreenFleetComponent } from './screen-fleet/screen-fleet.component';
 import { CompositionDetailComponent } from './composition-detail/composition-detail.component';
+import { CompositionSerializerService } from './composition-serializer.service';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { CompositionDetailComponent } from './composition-detail/composition-det
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [TvService, CompositionService],
+  providers: [TvService, CompositionService, CompositionSerializerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
