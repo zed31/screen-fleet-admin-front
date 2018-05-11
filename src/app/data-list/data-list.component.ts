@@ -18,9 +18,7 @@ export class DataListComponent implements OnInit {
 
   selectedData: DBInterface = null;
 
-  constructor() {
-    console.log(this.detailBadge);
-   }
+  constructor() { }
 
   onSelect(data: DBInterface): void {
     this.selectedData = data;
