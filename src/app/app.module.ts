@@ -3,16 +3,19 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { TvService } from './tv.service';
+import { TvsComponent } from './tvs/tvs.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TvsComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [TvService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
