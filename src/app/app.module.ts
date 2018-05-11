@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { TvService } from './tv.service';
 import { TvsComponent } from './tvs/tvs.component';
 import { DataListComponent } from './data-list/data-list.component';
+import { CompositionService } from './composition.service';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { DataListComponent } from './data-list/data-list.component';
   imports: [
     BrowserModule
   ],
-  providers: [TvService],
+  providers: [TvService, CompositionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
