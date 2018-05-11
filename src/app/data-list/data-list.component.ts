@@ -12,11 +12,15 @@ export class DataListComponent implements OnInit {
 
   @Input() dataList: DBInterface[] = null;
 
+  @Input() detailBadge = '#';
+
   @Output() remove: EventEmitter<DBInterface> = new EventEmitter();
 
   selectedData: DBInterface = null;
 
-  constructor() { }
+  constructor() {
+    console.log(this.detailBadge);
+   }
 
   onSelect(data: DBInterface): void {
     this.selectedData = data;
