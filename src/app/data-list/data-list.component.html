@@ -1,0 +1,7 @@
+<ul class="data-db">
+  <li *ngFor="let data of dataList"
+    [class.selected]="data === selectedData"
+    (click)="onSelect(data)">
+    <span class="badge">{{data.RawId}}</span> {{data.Name}}
+  </li>
+</ul>
