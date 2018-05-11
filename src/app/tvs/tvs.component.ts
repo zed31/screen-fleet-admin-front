@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TvService } from '../tv.service';
 import { TV } from '../tv';
+import { DBInterface } from '../dbif';
 
 @Component({
   selector: 'app-tvs',
@@ -35,6 +36,12 @@ export class TvsComponent implements OnInit {
     this.tvService
         .addTV(tv)
         .subscribe(t => this.tvs.push(t));
+  }
+
+  onRemove(data: DBInterface): void {
+    this.tvService
+        .removeTV(data)
+        .subscribe(_ => this.tvs = this.tvs.filter(t => t.RawId !== data.RawId));
   }
 
   onSelect(tv: TV): void {

@@ -1,12 +1,11 @@
 <h2>My TVS</h2>
-<app-data-list [dataList]="tvs"></app-data-list>
+<app-data-list [dataList]="tvs" (remove)="onRemove($event)"></app-data-list>
 <label>TV Name:
   <input #tvName />
 </label>
 <label>IP address:
     <input #ipAddress />
 </label>
-<!-- (click) passes input value to add() and then clears the input -->
 <button 
   (click)="add(tvName.value, ipAddress.value); tvName.value=''; ipAddress.value = ''">
   add

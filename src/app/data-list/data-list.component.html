@@ -1,7 +1,7 @@
 <ul class="data-db">
   <li *ngFor="let data of dataList"
-    [class.selected]="data === selectedData"
-    (click)="onSelect(data)">
-    <span class="badge">{{data.RawId}}</span> {{data.Name}}
+    [class.selected]="data === selectedData">
+    <span class="badge" (click)="onSelect(data)">{{data.RawId}}</span> 
+    {{data.Name}} <span (click)="onRemove(data)" class="remove">(X)</span>
   </li>
 </ul>
