@@ -10,6 +10,7 @@ import { CompositionService } from './composition.service';
 import { CompositionsComponent } from './compositions/compositions.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { ScreenFleetComponent } from './screen-fleet/screen-fleet.component';
+import { CompositionDetailComponent } from './composition-detail/composition-detail.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ScreenFleetComponent } from './screen-fleet/screen-fleet.component';
     TvsComponent,
     DataListComponent,
     CompositionsComponent,
-    ScreenFleetComponent
+    ScreenFleetComponent,
+    CompositionDetailComponent
   ],
   imports: [
     BrowserModule,

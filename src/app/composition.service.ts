@@ -13,6 +13,11 @@ export class CompositionService {
     return of(COMPOSITIONS);
   }
 
+  getComposition(id: string): Observable<Composition> {
+    const composition = COMPOSITIONS.find(c => c.RawId === id);
+    return of(composition);
+  }
+
   removeComposition(composition: DBInterface): Observable<DBInterface> {
     return of(composition);
   }
