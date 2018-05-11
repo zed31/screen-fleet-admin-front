@@ -7,13 +7,15 @@ import { TvService } from './tv.service';
 import { TvsComponent } from './tvs/tvs.component';
 import { DataListComponent } from './data-list/data-list.component';
 import { CompositionService } from './composition.service';
+import { CompositionsComponent } from './compositions/compositions.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TvsComponent,
-    DataListComponent
+    DataListComponent,
+    CompositionsComponent
   ],
   imports: [
     BrowserModule
