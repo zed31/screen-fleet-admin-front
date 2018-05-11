@@ -8,6 +8,8 @@ import { TvsComponent } from './tvs/tvs.component';
 import { DataListComponent } from './data-list/data-list.component';
 import { CompositionService } from './composition.service';
 import { CompositionsComponent } from './compositions/compositions.component';
+import { AppRoutingModule } from './/app-routing.module';
+import { ScreenFleetComponent } from './screen-fleet/screen-fleet.component';
 
 
 @NgModule({
@@ -15,10 +17,12 @@ import { CompositionsComponent } from './compositions/compositions.component';
     AppComponent,
     TvsComponent,
     DataListComponent,
-    CompositionsComponent
+    CompositionsComponent,
+    ScreenFleetComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [TvService, CompositionService],
   bootstrap: [AppComponent]
