@@ -9,6 +9,10 @@ export class TvService {
 
   getTVList(): Observable<TV[]> { return of(TVS); }
 
+  addTV(tv: TV): Observable<TV> {
+    return of(tv);
+  }
+
   constructor() { }
 
 }
