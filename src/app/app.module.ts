@@ -12,7 +12,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ScreenFleetComponent } from './screen-fleet/screen-fleet.component';
 import { CompositionDetailComponent } from './composition-detail/composition-detail.component';
 import { CompositionSerializerService } from './composition-serializer.service';
-
+import { SafeHtmlPipe } from './safe-html';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import { CompositionSerializerService } from './composition-serializer.service';
     DataListComponent,
     CompositionsComponent,
     ScreenFleetComponent,
-    CompositionDetailComponent
+    CompositionDetailComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,

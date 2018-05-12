@@ -6,7 +6,7 @@ export const COMPOSITIONS: Composition[] = [
         Name: 'First composition',
         InsertionDate: new Date(),
         UpdateTime: new Date(),
-        HtmlContent: '<div id="first-data-inside" style="display: grid" ><div style="one" >Hello World!</div ></div >'
+        HtmlContent: '<div id="first-data-inside" style="display: grid;" ><div id="one" style="border: 2px solid black;" >Hello World!</div ></div >'
     },
     {
         RawId: '2',

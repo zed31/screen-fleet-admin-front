@@ -1,41 +1,10 @@
-enum LeafAlign { Horizontal, Vertical }
-
-enum PossibleAction { HorizontalLeaf, VerticalLeaf, RawData }
-
 const HORIZONTAL_ALIGMENT = 'id="horizontal-align"';
 const VERTICAL_ALIGNMENT = 'id="vertical-align"';
-
-class CompositionLeaf {
-    private alignment: LeafAlign;
-    private leaf1: CompositionNode;
-    private leaf2: CompositionNode;
-}
-
-class CompositionNode {
-    private data: string | CompositionLeaf;
-
-    insertRaw(data: string) {
-        this.data = data;
-    }
-}
 
 export class CompositionData {
     private GRID_START = '<div id="first-data-inside" style="display: grid">';
     private GRID_END = '</div>';
-    private innerData: CompositionNode;
-
-    private detectAction(htmlData: string): PossibleAction {
-        if (htmlData.includes(HORIZONTAL_ALIGMENT)) {
-            return PossibleAction.HorizontalLeaf;
-        } else if (htmlData.includes(VERTICAL_ALIGNMENT)) {
-            return PossibleAction.VerticalLeaf;
-        }
-        return PossibleAction.RawData;
-    }
-
-    generateRawData(rawData: string): void {
-        this.innerData.insertRaw(rawData);
-    }
+    private innerData: string[];
 
     constructor(private htmlData: string) {
         let data: string[] = this.htmlData.split(/\s>|<\//);
@@ -49,8 +18,10 @@ export class CompositionData {
             }
             return d;
         });
-        console.log(data);
+        this.innerData = data;
+    }
 
-
+    public getData(): string {
+        return this.innerData.toString();
     }
 }
