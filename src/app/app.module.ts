@@ -15,6 +15,7 @@ import { CompositionSerializerService } from './composition-serializer.service';
 import { SafeHtmlPipe } from './safe-html';
 import { ResourceComponent } from './resource/resource.component';
 import { ResourceService } from './resource.service';
+import { ResourceImporterComponent } from './resource-importer/resource-importer.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ResourceService } from './resource.service';
     ScreenFleetComponent,
     CompositionDetailComponent,
     SafeHtmlPipe,
-    ResourceComponent
+    ResourceComponent,
+    ResourceImporterComponent
   ],
   imports: [
     BrowserModule,
