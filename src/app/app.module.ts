@@ -14,6 +14,7 @@ import { CompositionDetailComponent } from './composition-detail/composition-det
 import { CompositionSerializerService } from './composition-serializer.service';
 import { SafeHtmlPipe } from './safe-html';
 import { ResourceComponent } from './resource/resource.component';
+import { ResourceService } from './resource.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { ResourceComponent } from './resource/resource.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [TvService, CompositionService, CompositionSerializerService],
+  providers: [TvService, CompositionService, CompositionSerializerService, ResourceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
