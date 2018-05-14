@@ -3,8 +3,7 @@ const VERTICAL_ALIGNMENT = 'id="vertical-align"';
 
 /** Class used to serialize a composition to a set of HTML element */
 export class CompositionData {
-    private GRID_START = '<div id="first-data-inside" style="display: grid">';
-    private GRID_END = '</div>';
+    /** The Composition HTML element */
     private htmlElement: HTMLElement = null;
 
     /**
@@ -22,5 +21,12 @@ export class CompositionData {
      */
     public getData(): HTMLElement {
         return this.htmlElement;
+    }
+
+    /**
+     * @returns A string containing the whole HTMLElement of the composition
+     */
+    public getCompositionAsString(): string {
+        return this.htmlElement.outerHTML;
     }
 }

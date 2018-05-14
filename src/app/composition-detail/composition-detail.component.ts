@@ -10,6 +10,10 @@ import { CompositionSerializerService } from '../composition-serializer.service'
 const ID_FIRST_DIV = 'rendering';
 const ROUTE_ID = 'id';
 
+/**
+ * A class used as angular component to handle the detail of a composition
+ * @class CompositionDetailComponent
+ */
 @Component({
   selector: 'app-composition-detail',
   templateUrl: './composition-detail.component.html',
@@ -17,12 +21,23 @@ const ROUTE_ID = 'id';
 })
 export class CompositionDetailComponent implements OnInit {
 
+  /** The current composition */
   private composition: Composition = null;
-  private compositionData: CompositionData = null;
-  private htmlInnerData = '';
-  private htmlData = '';
-  private divFirstConfig: HTMLElement = null;
 
+  /** The composition details */
+  private compositionData: CompositionData = null;
+
+  /** The detail of a div composition */
+  private divCompositionDetail: HTMLElement = null;
+
+  /**
+   * Create a CompositionDetailComponent
+   * @constructor
+   * @param compositionService the service of the composition
+   * @param compositionSerializer the serializer of the composition
+   * @param route The route information
+   * @param location The location used to handle routes
+   */
   constructor(
     private compositionService: CompositionService,
     private compositionSerializer: CompositionSerializerService,
@@ -34,34 +49,44 @@ export class CompositionDetailComponent implements OnInit {
     console.log('Hello');
   }
 
+  /**
+   * Append auto-generated HTML into the component's view
+   */
   appendHtml(): void {
-    document.getElementById(ID_FIRST_DIV).appendChild(this.divFirstConfig);
-    const v = document.getElementById(ID_FIRST_DIV)
-                      .querySelectorAll('div');
+    const renderElement = document.getElementById(ID_FIRST_DIV);
+    renderElement.appendChild(this.divCompositionDetail);
+    const v = renderElement.querySelectorAll('div');
+
     const elements: Array<HTMLElement> = [].slice.call(v, 1);
     elements.forEach(element => {
       const e = element as HTMLElement;
+
       e.addEventListener('click', () => {
         this.displayhello();
       });
-      console.log(element.id);
     });
   }
 
-  getComposition(): void {
+  /**
+   * Set-up the detail of the composition
+   */
+  setupComposition(): void {
     const id = this.route.snapshot.paramMap.get(ROUTE_ID);
     this.compositionService
         .getComposition(id)
         .subscribe(c => {
           this.composition = c;
           this.compositionData = this.compositionSerializer.generateCompositionData(this.composition.HtmlContent);
-          this.divFirstConfig = this.compositionData.getData();
+          this.divCompositionDetail = this.compositionData.getData();
           this.appendHtml();
         });
   }
 
+  /**
+   * Init lifecycle of the angular component
+   */
   ngOnInit() {
-    this.getComposition();
+    this.setupComposition();
   }
 
 }
