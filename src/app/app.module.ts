@@ -13,6 +13,7 @@ import { ScreenFleetComponent } from './screen-fleet/screen-fleet.component';
 import { CompositionDetailComponent } from './composition-detail/composition-detail.component';
 import { CompositionSerializerService } from './composition-serializer.service';
 import { SafeHtmlPipe } from './safe-html';
+import { ResourceComponent } from './resource/resource.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SafeHtmlPipe } from './safe-html';
     CompositionsComponent,
     ScreenFleetComponent,
     CompositionDetailComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ResourceComponent
   ],
   imports: [
     BrowserModule,
