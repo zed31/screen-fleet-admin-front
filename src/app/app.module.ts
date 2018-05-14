@@ -16,6 +16,7 @@ import { SafeHtmlPipe } from './safe-html';
 import { ResourceComponent } from './resource/resource.component';
 import { ResourceService } from './resource.service';
 import { ResourceImporterComponent } from './resource-importer/resource-importer.component';
+import { ResourceListComponent } from './resource-list/resource-list.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ResourceImporterComponent } from './resource-importer/resource-importer
     CompositionDetailComponent,
     SafeHtmlPipe,
     ResourceComponent,
-    ResourceImporterComponent
+    ResourceImporterComponent,
+    ResourceListComponent
   ],
   imports: [
     BrowserModule,

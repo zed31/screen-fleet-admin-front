@@ -22,13 +22,16 @@ const ROUTE_ID = 'id';
 export class CompositionDetailComponent implements OnInit {
 
   /** The current composition */
-  private composition: Composition = null;
+  composition: Composition = null;
 
   /** The composition details */
   private compositionData: CompositionData = null;
 
   /** The detail of a div composition */
   private divCompositionDetail: HTMLElement = null;
+
+  /** The element selected */
+  private elementSelected: HTMLElement = null;
 
   /**
    * Create a CompositionDetailComponent
@@ -45,8 +48,17 @@ export class CompositionDetailComponent implements OnInit {
     private location: Location
   ) { }
 
-  displayhello(): void {
-    console.log('Hello');
+  displayhello(resource): void {
+    console.log('Hello', resource);
+  }
+
+  /**
+   * Select a specific html element
+   * @param element The selected element
+   */
+  selectElement(element: HTMLElement): void {
+    console.log(element);
+    this.elementSelected = element;
   }
 
   /**
@@ -62,7 +74,7 @@ export class CompositionDetailComponent implements OnInit {
       const e = element as HTMLElement;
 
       e.addEventListener('click', () => {
-        this.displayhello();
+        this.selectElement(e);
       });
     });
   }
