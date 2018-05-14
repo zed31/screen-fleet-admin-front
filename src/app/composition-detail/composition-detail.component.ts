@@ -7,6 +7,9 @@ import { Composition } from '../composition';
 import { CompositionData } from '../composition-data';
 import { CompositionSerializerService } from '../composition-serializer.service';
 
+const ID_FIRST_DIV = 'rendering';
+const ROUTE_ID = 'id';
+
 @Component({
   selector: 'app-composition-detail',
   templateUrl: './composition-detail.component.html',
@@ -14,10 +17,11 @@ import { CompositionSerializerService } from '../composition-serializer.service'
 })
 export class CompositionDetailComponent implements OnInit {
 
-  composition: Composition = null;
-  compositionData: CompositionData;
-  htmlInnerData = '';
-  htmlData = '';
+  private composition: Composition = null;
+  private compositionData: CompositionData = null;
+  private htmlInnerData = '';
+  private htmlData = '';
+  private divFirstConfig: HTMLElement = null;
 
   constructor(
     private compositionService: CompositionService,
@@ -27,18 +31,32 @@ export class CompositionDetailComponent implements OnInit {
   ) { }
 
   displayhello(): void {
-    console.log("Hello");
+    console.log('Hello');
+  }
+
+  appendHtml(): void {
+    document.getElementById(ID_FIRST_DIV).appendChild(this.divFirstConfig);
+    const v = document.getElementById(ID_FIRST_DIV)
+                      .querySelectorAll('div');
+    const elements: Array<HTMLElement> = [].slice.call(v, 1);
+    elements.forEach(element => {
+      const e = element as HTMLElement;
+      e.addEventListener('click', () => {
+        this.displayhello();
+      });
+      console.log(element.id);
+    });
   }
 
   getComposition(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get(ROUTE_ID);
     this.compositionService
         .getComposition(id)
         .subscribe(c => {
           this.composition = c;
           this.compositionData = this.compositionSerializer.generateCompositionData(this.composition.HtmlContent);
-          this.htmlInnerData = this.compositionData.getData();
-          console.log(this.htmlInnerData);
+          this.divFirstConfig = this.compositionData.getData();
+          this.appendHtml();
         });
   }
 
