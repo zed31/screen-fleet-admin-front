@@ -92,8 +92,11 @@ export class CompositionDetailComponent implements OnInit {
    * @param element The selected element
    */
   private selectElement(event: MouseEvent): void {
+    event.stopPropagation();
     this.elementSelected = event.srcElement as HTMLElement;
-    console.log(this.elementSelected);
+    if (this.elementSelected.id.includes('resource')) {
+      this.elementSelected = this.elementSelected.parentElement as HTMLElement;
+    }
   }
 
   /**
@@ -109,7 +112,6 @@ export class CompositionDetailComponent implements OnInit {
     this.elementSelected.removeEventListener('click', this.selectElementBinded);
     childs.forEach(element => {
       const e = element as HTMLElement;
-      console.log('Seting event: ', e);
       e.addEventListener('click', this.selectElementBinded);
     });
   }

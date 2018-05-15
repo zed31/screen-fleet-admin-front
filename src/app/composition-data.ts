@@ -73,8 +73,7 @@ export class CompositionData {
     private generateDivElement(id: string, parent: HTMLElement): HTMLElement {
         const element = document.createElement('div');
         element.setAttribute('id', id);
-        element.setAttribute('style', this.defaultDivChildStyle + 'height: ' + (parent.offsetHeight / 2));
-        console.log(element);
+        element.setAttribute('style', this.defaultDivChildStyle + 'height: inherit;');
         element.innerHTML = 'Inner html zone';
         return element;
     }
@@ -100,6 +99,13 @@ export class CompositionData {
     public splitHorizontal(element: HTMLElement): HTMLElement {
         element.style.cssText += this.horizontalSplit;
         element = this.splitElement(element);
+        element.innerHTML = '';
+        const firstChild = this.generateDivElement(element.id + '-inner-1', element);
+        const secondChild = this.generateDivElement(element.id + '-inner-2', element);
+        firstChild.setAttribute('style', this.defaultDivChildStyle + 'max-height: ' + (element.offsetHeight / 2));
+        secondChild.setAttribute('style', this.defaultDivChildStyle + 'max-height: ' + (element.offsetHeight / 2));
+        element.appendChild(firstChild);
+        element.appendChild(secondChild);
         return element;
     }
 
@@ -146,7 +152,7 @@ export class CompositionData {
             }
         }
 
-        child.innerHTML = '<div id="' + element.id + '-resource"><img src="' + url + '"" /></div>';
+        child.innerHTML = '<img id="' + element.id + '-inner-resource" src="' + url + '"" /></div>';
         return child;
     }
 
@@ -176,8 +182,8 @@ export class CompositionData {
     public insertStreamVideo(element: HTMLElement, url: string): HTMLElement {
         const frame = this.createHTMLFrame(url);
         frame.setAttribute('id', element.id);
-        this.htmlElement.replaceChild(frame, element);
-        return frame;
+        element.innerHTML = frame.outerHTML;
+        return element;
     }
 
     /**
