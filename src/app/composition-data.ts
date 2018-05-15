@@ -9,9 +9,35 @@ export class CompositionData {
     /** The Composition HTML element */
     private htmlElement: HTMLElement = null;
 
+    /** Default border style of a div */
+    private defaultBorderStyle = 'border: 2px solid black;';
+
+    /** Default size of a div */
+    private defaultDivSize = 'height: 600px; width: 100%;';
+
+    /** Default size of a child div */
+    private defaultChildDivSize = 'height: 100%; width: 100%;';
+
+    /** Default overflow of a div */
+    private defaultDivOverflow = 'overflow: hidden;';
+
+    /** Cursor default attribute */
+    private pointerCursor = 'cursor: pointer;';
+
+    /** Default horizontal split */
+    private horizontalSplit = 'display: grid; grid-template-rows: 1fr 1fr; ' +
+                              this.defaultBorderStyle + ' ' + this.pointerCursor;
+
+    /** Default vertical split */
+    private verticalSplit = 'display: grid; grid-template-columns: 1fr 1fr; ' +
+                            this.defaultBorderStyle + ' ' + this.pointerCursor;
+
     /** Default of child div style */
-    private defaultDivStyle = 'height: 600px; border: 2px solid black;' +
-                            ' max-width: 100%; width: 100%; overflow: hidden';
+    private defaultDivStyle = this.defaultDivSize + ' ' +
+                              this.defaultBorderStyle + ' ' + this.defaultDivOverflow;
+
+    /** Default style of an inner divisition */
+    private defaultDivChildStyle = this.defaultDivOverflow + ' ' + this.defaultBorderStyle;
 
     /**
      * Constructor of the CompositionData class
@@ -41,13 +67,15 @@ export class CompositionData {
     /**
      * Generate a div element
      * @param id The id of the element (make sure it's an unique one)
+     * @param parent The parent div of the element
      * @returns an HTMLElement that represents a division
      */
-    private generateDivElement(id: string): HTMLElement {
+    private generateDivElement(id: string, parent: HTMLElement): HTMLElement {
         const element = document.createElement('div');
         element.setAttribute('id', id);
-        element.setAttribute('style', 'border: 2px solid; width: 100%; max-height: 100%; cursor: pointer; overflow: hidden');
-        element.innerHTML = 'Inner html clickable';
+        element.setAttribute('style', this.defaultDivChildStyle + 'height: ' + (parent.offsetHeight / 2));
+        console.log(element);
+        element.innerHTML = 'Inner html zone';
         return element;
     }
 
@@ -56,9 +84,11 @@ export class CompositionData {
      * @param element The element being splitted
      */
     private splitElement(element: HTMLElement): HTMLElement {
-        const firstChild = this.generateDivElement(element.id + '-inner-1');
-        const secondChild = this.generateDivElement(element.id + '-inner-2');
-        element.appendChild(firstChild).appendChild(secondChild);
+        element.innerHTML = '';
+        const firstChild = this.generateDivElement(element.id + '-inner-1', element);
+        const secondChild = this.generateDivElement(element.id + '-inner-2', element);
+        element.appendChild(firstChild);
+        element.appendChild(secondChild);
         return element;
     }
 
@@ -68,7 +98,7 @@ export class CompositionData {
      * @returns the new HTMLElement with its childs
      */
     public splitHorizontal(element: HTMLElement): HTMLElement {
-        element.setAttribute('style', 'display: grid; grid-template-rows: 1fr 1fr; overflow: hidden');
+        element.style.cssText += this.horizontalSplit;
         element = this.splitElement(element);
         return element;
     }
@@ -79,7 +109,7 @@ export class CompositionData {
      * @returns the splitted HTMLElement
      */
     public splitVertical(element: HTMLElement): HTMLElement {
-        element.setAttribute('style', 'display: grid; grid-template-columns: 1fr 1fr; overflow: hidden');
+        element.style.cssText += this.verticalSplit;
         element = this.splitElement(element);
         return element;
     }
@@ -94,6 +124,7 @@ export class CompositionData {
         const frameDiv = document.createElement('div');
         frame.setAttribute('src', url);
         frame.setAttribute('frameborder', '0');
+        frame.setAttribute('style', this.defaultChildDivSize);
         frameDiv.setAttribute('style', this.defaultDivStyle);
         frameDiv.appendChild(frame);
         return frameDiv;
@@ -106,13 +137,33 @@ export class CompositionData {
      * @returns an HTMLElement with the image inside it
      */
     public insertImageToElement(element: HTMLElement, url: string): HTMLElement {
+        let child = this.htmlElement.querySelector('#' + element.id) as HTMLElement;
+
+        if (!child) {
+            child = this.htmlElement.id === element.id ? this.htmlElement : null;
+            if (!child) {
+                return null;
+            }
+        }
+
+        child.innerHTML = '<div id="' + element.id + '-resource"><img src="' + url + '"" /></div>';
+        return child;
+    }
+
+    /**
+     * Insert a video to a specific element
+     * @param element The html element where the video is inserted
+     * @param url the url of the video
+     */
+    public insertVideoToElement(element: HTMLElement, url: string): HTMLElement {
         const child = this.htmlElement.querySelector('#' + element.id) as HTMLElement;
 
         if (!child) {
             return null;
         }
 
-        child.innerHTML = '<img src="' + url + '" style="max-width: 100%; height: 100%" />';
+        child.innerHTML = '<video style="height: 100%; width: 100%" autoplay controls>' +
+                          '<source src="' + url + '" type="video/mp4"></video>';
         return child;
     }
 
@@ -127,5 +178,18 @@ export class CompositionData {
         frame.setAttribute('id', element.id);
         this.htmlElement.replaceChild(frame, element);
         return frame;
+    }
+
+    /**
+     * Replace the last element by the new one to the general DOM
+     * @param element The new inserted element
+     * @returns the replaced HTMLElement
+     */
+    public replaceElementWith(element: HTMLElement): HTMLElement {
+        this.htmlElement.replaceChild(
+            element,
+            this.htmlElement.querySelector('#' + element.id)
+        );
+        return element;
     }
 }

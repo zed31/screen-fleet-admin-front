@@ -1,6 +1,10 @@
 <h2>Composition Detail</h2>
 <div id="rendering" style="display: grid; grid-template-columns: 50% 50%">
     <div *ngIf='elementSelected'>
+        <ul>
+            <li (click)='splitHorizontal()'>Horizontal split</li>
+            <li (click)='splitVertical()'>Vertical split</li>
+        </ul>
         <app-resource-importer (select)='setupResource($event)'>
         </app-resource-importer>
     </div>

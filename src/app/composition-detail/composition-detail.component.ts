@@ -33,7 +33,9 @@ export class CompositionDetailComponent implements OnInit {
   private divCompositionDetail: HTMLElement = null;
 
   /** The element selected */
-  private elementSelected: HTMLElement = null;
+  public elementSelected: HTMLElement = null;
+
+  private selectElementBinded = this.selectElement.bind(this);
 
   /**
    * Create a CompositionDetailComponent
@@ -50,24 +52,16 @@ export class CompositionDetailComponent implements OnInit {
     private location: Location
   ) { }
 
-  /**
-   * Create a new frame and setup the URL
-   * @param resource The resource used to retrieve the frame URL
-   * @returns An IFrame HTMLElement
-   */
-  createFrame(resource: Resource): HTMLIFrameElement {
-    const v = document.createElement('iframe');
-    v.setAttribute('src', resource.Url);
-    v.setAttribute('frameborder', '0');
-    v.setAttribute('style', 'height: 100%; max-width: 100%; width: 100%');
-    return v;
-  }
 
   /**
    * Setup the video inside the selected HTMLElement
    * @param resource The resource of type image, video or stream
    */
-  setupResource(resource: Resource): void {
+  public setupResource(resource: Resource): void {
+    if (!this.elementSelected) {
+      return ;
+    }
+
     switch (resource.Type) {
       case ResourceType.Image: {
         this.elementSelected = this.compositionData.insertImageToElement(
@@ -77,16 +71,17 @@ export class CompositionDetailComponent implements OnInit {
         break;
       }
       case ResourceType.Stream: {
-        this.compositionData.insertStreamVideo(
+        this.elementSelected = this.compositionData.insertStreamVideo(
           this.elementSelected,
           resource.Url
         );
         break;
       }
       case ResourceType.Video: {
-        this.elementSelected.innerHTML = '<video style="height: 100%; max-width: 100%; width: 100%" autoplay controls>' +
-                                         '<source src="' + resource.Url +
-                                         '" type="video/mp4"></video>';
+        this.elementSelected = this.compositionData.insertVideoToElement(
+          this.elementSelected,
+          resource.Url
+        );
         break;
       }
     }
@@ -96,32 +91,58 @@ export class CompositionDetailComponent implements OnInit {
    * Select a specific html element
    * @param element The selected element
    */
-  selectElement(element: HTMLElement): void {
-    this.elementSelected = element;
+  private selectElement(event: MouseEvent): void {
+    this.elementSelected = event.srcElement as HTMLElement;
+    console.log(this.elementSelected);
+  }
+
+  /**
+   * Split the element selected to an horizontal one
+   */
+  public splitHorizontal(): void {
+    if (!this.elementSelected) {
+      return ;
+    }
+    this.elementSelected = this.compositionData.splitHorizontal(this.elementSelected);
+    const childs: Array<HTMLElement> = [].slice.call(this.elementSelected.children);
+
+    this.elementSelected.removeEventListener('click', this.selectElementBinded);
+    childs.forEach(element => {
+      const e = element as HTMLElement;
+      console.log('Seting event: ', e);
+      e.addEventListener('click', this.selectElementBinded);
+    });
+  }
+
+  /**
+   * Split the element selected to a vertical one
+   */
+  public splitVertical(): void {
+    if (!this.elementSelected) {
+      return ;
+    }
+    this.compositionData.splitVertical(this.elementSelected);
   }
 
   /**
    * Append auto-generated HTML into the component's view
    */
-  appendHtml(): void {
+  private appendHtml(): void {
     const renderElement = document.getElementById(ID_FIRST_DIV);
     renderElement.appendChild(this.divCompositionDetail);
     const v = renderElement.querySelectorAll('div');
 
-    const elements: Array<HTMLElement> = [].slice.call(v, 1);
+    const elements: Array<HTMLElement> = [].slice.call(v);
     elements.forEach(element => {
       const e = element as HTMLElement;
-
-      e.addEventListener('click', () => {
-        this.selectElement(e);
-      });
+      e.addEventListener('click', this.selectElementBinded);
     });
   }
 
   /**
    * Set-up the detail of the composition
    */
-  setupComposition(): void {
+  private setupComposition(): void {
     const id = this.route.snapshot.paramMap.get(ROUTE_ID);
     this.compositionService
         .getComposition(id)
