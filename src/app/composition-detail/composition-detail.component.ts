@@ -6,19 +6,21 @@ import { ActivatedRoute } from '@angular/router';
 import { Composition } from '../composition';
 import { CompositionData } from '../composition-data';
 import { CompositionSerializerService } from '../composition-serializer.service';
+import { Resource, ResourceType } from '../resource';
 
 const ID_FIRST_DIV = 'rendering';
 const ROUTE_ID = 'id';
 
-/**
- * A class used as angular component to handle the detail of a composition
- * @class CompositionDetailComponent
- */
 @Component({
   selector: 'app-composition-detail',
   templateUrl: './composition-detail.component.html',
   styleUrls: ['./composition-detail.component.css']
 })
+
+/**
+ * A class used as angular component to handle the detail of a composition
+ * @class CompositionDetailComponent
+ */
 export class CompositionDetailComponent implements OnInit {
 
   /** The current composition */
@@ -48,8 +50,46 @@ export class CompositionDetailComponent implements OnInit {
     private location: Location
   ) { }
 
-  displayhello(resource): void {
-    console.log('Hello', resource);
+  /**
+   * Create a new frame and setup the URL
+   * @param resource The resource used to retrieve the frame URL
+   * @returns An IFrame HTMLElement
+   */
+  createFrame(resource: Resource): HTMLIFrameElement {
+    const v = document.createElement('iframe');
+    v.setAttribute('src', resource.Url);
+    v.setAttribute('frameborder', '0');
+    v.setAttribute('style', 'height: 100%; max-width: 100%; width: 100%');
+    return v;
+  }
+
+  /**
+   * Setup the video inside the selected HTMLElement
+   * @param resource The resource of type image, video or stream
+   */
+  setupResource(resource: Resource): void {
+    switch (resource.Type) {
+      case ResourceType.Image: {
+        this.elementSelected = this.compositionData.insertImageToElement(
+          this.elementSelected,
+          resource.Url
+        );
+        break;
+      }
+      case ResourceType.Stream: {
+        this.compositionData.insertStreamVideo(
+          this.elementSelected,
+          resource.Url
+        );
+        break;
+      }
+      case ResourceType.Video: {
+        this.elementSelected.innerHTML = '<video style="height: 100%; max-width: 100%; width: 100%" autoplay controls>' +
+                                         '<source src="' + resource.Url +
+                                         '" type="video/mp4"></video>';
+        break;
+      }
+    }
   }
 
   /**
@@ -57,7 +97,6 @@ export class CompositionDetailComponent implements OnInit {
    * @param element The selected element
    */
   selectElement(element: HTMLElement): void {
-    console.log(element);
     this.elementSelected = element;
   }
 

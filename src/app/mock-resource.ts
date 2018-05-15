@@ -7,7 +7,7 @@ export const RESOURCES: Resource[] = [
         Name: 'FirstResource',
         InsertionDate: new Date(),
         UpdateTime: new Date(),
-        Url: 'C:\Users\Clement\Documents\work\screen_fleet_admin\screen-fleet-admin-front\resource\img1.jpg',
+        Url: 'http://127.0.0.1:8887/img1.jpg',
         Type: ResourceType.Image
     },
     {
@@ -15,7 +15,7 @@ export const RESOURCES: Resource[] = [
         Name: 'SecondResource',
         InsertionDate: new Date(),
         UpdateTime: new Date(),
-        Url: 'C:\Users\Clement\Documents\work\screen_fleet_admin\screen-fleet-admin-front\resource\img2.jpeg',
+        Url: 'http://127.0.0.1:8887/img2.jpeg',
         Type: ResourceType.Image
     },
     {
@@ -23,7 +23,7 @@ export const RESOURCES: Resource[] = [
         Name: 'ThirdResource',
         InsertionDate: new Date(),
         UpdateTime: new Date(),
-        Url: 'C:\Users\Clement\Documents\work\screen_fleet_admin\screen-fleet-admin-front\resource\img3.jpeg',
+        Url: 'http://127.0.0.1:8887/img3.jpeg',
         Type: ResourceType.Image
     },
     {
@@ -31,15 +31,15 @@ export const RESOURCES: Resource[] = [
         Name: 'FourthResource',
         InsertionDate: new Date(),
         UpdateTime: new Date(),
-        Url: 'https://www.youtube.com/watch?v=4t6rQDxJwno&list=RDE1foE6xq66k&index=9',
-        Type: ResourceType.Video
+        Url: 'https://www.youtube.com/embed/UceaB4D0jpo?autoplay=1',
+        Type: ResourceType.Stream
     },
     {
         RawId: '5',
         Name: 'FifthResource',
         InsertionDate: new Date(),
         UpdateTime: new Date(),
-        Url: 'https://www.youtube.com/watch?v=Gdg5HqX_vZE&index=8&list=RDE1foE6xq66k',
-        Type: ResourceType.Stream
+        Url: 'http://127.0.0.1:8887/video1.mp4',
+        Type: ResourceType.Video
     }
 ];

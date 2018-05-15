@@ -1,4 +1,7 @@
 <h2>Composition Detail</h2>
-<div id="rendering" style="display: grid"></div>
-<app-resource-importer (select)='displayhello($event)'>
-</app-resource-importer>
+<div id="rendering" style="display: grid; grid-template-columns: 50% 50%">
+    <div *ngIf='elementSelected'>
+        <app-resource-importer (select)='setupResource($event)'>
+        </app-resource-importer>
+    </div>
+</div>
