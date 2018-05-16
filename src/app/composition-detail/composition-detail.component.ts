@@ -35,7 +35,11 @@ export class CompositionDetailComponent implements OnInit {
   /** The element selected */
   public elementSelected: HTMLElement = null;
 
+  /** Bind for html element */
   private selectElementBinded = this.selectElement.bind(this);
+
+  /** Key of the detailed composition */
+  private key: string = null;
 
   /**
    * Create a CompositionDetailComponent
@@ -67,21 +71,21 @@ export class CompositionDetailComponent implements OnInit {
         this.elementSelected = this.compositionData.insertImageToElement(
           this.elementSelected,
           resource.Url
-        );
+        ) as HTMLElement;
         break;
       }
       case 'Stream': {
         this.elementSelected = this.compositionData.insertStreamVideo(
           this.elementSelected,
           resource.Url
-        );
+        ) as HTMLElement;
         break;
       }
       case 'Video': {
         this.elementSelected = this.compositionData.insertVideoToElement(
           this.elementSelected,
           resource.Url
-        );
+        ) as HTMLElement;
         break;
       }
     }
@@ -106,7 +110,7 @@ export class CompositionDetailComponent implements OnInit {
     if (!this.elementSelected) {
       return ;
     }
-    this.elementSelected = this.compositionData.splitHorizontal(this.elementSelected);
+    this.elementSelected = this.compositionData.splitHorizontal(this.elementSelected) as HTMLElement;
     const childs: Array<HTMLElement> = [].slice.call(this.elementSelected.children);
 
     this.elementSelected.removeEventListener('click', this.selectElementBinded);
@@ -130,9 +134,9 @@ export class CompositionDetailComponent implements OnInit {
    * Append auto-generated HTML into the component's view
    */
   private appendHtml(): void {
-    const renderElement = document.getElementById(ID_FIRST_DIV);
+    const renderElement = document.getElementById(ID_FIRST_DIV) as HTMLElement;
     renderElement.appendChild(this.divCompositionDetail);
-    const v = renderElement.querySelectorAll('div');
+    const v = renderElement.querySelectorAll('div') as NodeListOf<HTMLDivElement>;
 
     const elements: Array<HTMLElement> = [].slice.call(v);
     elements.forEach(element => {
@@ -149,10 +153,24 @@ export class CompositionDetailComponent implements OnInit {
     this.compositionService
         .getComposition(id)
         .subscribe(c => {
-          this.composition = c;
+          const tmpComp = c[0];
+          this.key = tmpComp.key as string;
+          this.composition = tmpComp.payload.val() as Composition;
           this.compositionData = this.compositionSerializer.generateCompositionData(this.composition.HtmlContent);
           this.divCompositionDetail = this.compositionData.getData();
           this.appendHtml();
+        });
+  }
+
+  /**
+   * Submit changes of the composition
+   */
+  public submitChanges(): void {
+    this.composition.HtmlContent = this.compositionData.getCompositionAsString();
+    this.compositionService
+        .updateComposition(this.key, this.composition)
+        .subscribe(val => {
+          this.composition = val as Composition;
         });
   }
 
