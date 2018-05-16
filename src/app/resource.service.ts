@@ -13,7 +13,11 @@ import { Resource } from './resource';
 @Injectable()
 export class ResourceService {
 
+  /** Reference of the resource */
   private resourceDbRef: AngularFireList<Resource> = null;
+
+  /** Reference to the url for the resources */
+  private RESSOURCE_ID = '/resources';
 
   /**
    * @returns An observable to an array of resources
@@ -55,7 +59,7 @@ export class ResourceService {
    * @param afdb The AngularFireDatabase module
    */
   constructor(private afdb: AngularFireDatabase) {
-    this.resourceDbRef = afdb.list('/resources');
+    this.resourceDbRef = afdb.list(this.RESSOURCE_ID);
   }
 
 }
