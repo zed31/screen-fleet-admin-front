@@ -23,7 +23,7 @@ export class CompositionsComponent implements OnInit {
 
   onRemove(data: DBInterface): void {
     this.compositionService
-        .removeComposition(data)
+        .removeComposition(data as Composition)
         .subscribe(_ => this.compositions = this.compositions.filter(d => d.RawId !== data.RawId));
   }
 
