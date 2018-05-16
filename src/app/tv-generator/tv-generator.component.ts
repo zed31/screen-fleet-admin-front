@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { TvService } from '../tv.service';
 import { TV } from '../tv';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tv-generator',
@@ -22,7 +23,18 @@ export class TvGeneratorComponent implements OnInit {
    * @constructor
    * @param tvService The service used to communicate with the db
    */
-  constructor(private tvService: TvService) { }
+  constructor(private tvService: TvService, private router: Router) {
+    this.tvModel.InsertionDate = new Date();
+    this.tvModel.UpdateTime = new Date();
+  }
+
+  /**
+   * Submit an event
+   */
+  public onSubmit(): void {
+    this.tvService.addTV(this.tvModel)
+        .subscribe(() => this.router.navigate(['']));
+  }
 
   ngOnInit() {
   }
