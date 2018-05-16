@@ -28,6 +28,7 @@ import { ResourceUploaderService } from './resource-uploader.service';
 import { ResourceGeneratorComponent } from './resource-generator/resource-generator.component';
 import { ResourceFormComponent } from './resource-form/resource-form.component';
 import { TvGeneratorComponent } from './tv-generator/tv-generator.component';
+import { CompositionCreatorComponent } from './composition-creator/composition-creator.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { TvGeneratorComponent } from './tv-generator/tv-generator.component';
     ResourceListComponent,
     ResourceGeneratorComponent,
     ResourceFormComponent,
-    TvGeneratorComponent
+    TvGeneratorComponent,
+    CompositionCreatorComponent
   ],
   imports: [
     BrowserModule,
