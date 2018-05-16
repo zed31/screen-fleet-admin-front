@@ -130,11 +130,22 @@ export class CompositionDetailComponent implements OnInit {
     this.compositionData.splitVertical(this.elementSelected);
   }
 
+  private isChild(): HTMLElement {
+    const renderElement = document.getElementById(ID_FIRST_DIV) as HTMLElement;
+    const v = renderElement.querySelectorAll('div') as NodeListOf<HTMLDivElement>;
+    const elements: Array<HTMLElement> = [].slice.call(v);
+    return elements.find(elem => elem.id === this.divCompositionDetail.id);
+  }
+
   /**
    * Append auto-generated HTML into the component's view
    */
   private appendHtml(): void {
     const renderElement = document.getElementById(ID_FIRST_DIV) as HTMLElement;
+    const currentDiv: HTMLElement = this.isChild();
+    if (currentDiv !== undefined) {
+      renderElement.removeChild(currentDiv);
+    }
     renderElement.appendChild(this.divCompositionDetail);
     const v = renderElement.querySelectorAll('div') as NodeListOf<HTMLDivElement>;
 
