@@ -24,13 +24,12 @@ export class ResourceFormComponent implements OnInit {
   public typeModel: string[] = ['Image', 'Stream', 'Video'];
 
   /** Resource model to fill the form */
-  public resourceModel: Resource = new Resource();
+  public resourceModel: Resource = new Resource(Math.random().toString(36).substring(2));
 
   /**
    * @constructor
    */
   constructor() {
-    this.resourceModel.RawId = Math.random().toString(36).substring(2);
     this.resourceModel.UpdateTime = new Date();
     this.resourceModel.InsertionDate = new Date();
   }
