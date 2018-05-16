@@ -44,10 +44,10 @@ export class CompositionsComponent implements OnInit {
    * Remove a specific composition
    * @param data The data being removed
    */
-  public onRemove(data: DBInterface): void {
-    // this.compositionService
-        // .removeComposition(data as Composition)
-        // .subscribe(_ => this.compositions = this.compositions.filter(d => d.RawId !== data.RawId));
+  public onRemove(data: ModelWrapper): void {
+    this.compositionService
+        .removeComposition(data.key, data.model as Composition)
+        .subscribe(_ => this.compositions = this.compositions.filter(d => d.model.RawId !== data.model.RawId));
   }
 
   ngOnInit() {

@@ -18,6 +18,9 @@ export class TvsComponent implements OnInit {
   /** The tvs wrapped inside the firebase wrapper */
   tvs: ModelWrapper[] = null;
 
+  /** Detail route of the TV */
+  tvDetail = 'composition';
+
   /**
    * @constructor
    * @param tvService The service used to handle tv
