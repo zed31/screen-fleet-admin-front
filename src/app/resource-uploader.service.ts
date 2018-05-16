@@ -19,7 +19,7 @@ export class ResourceUploaderService {
   public upload(file: File): AngularFireUploadTask {
     const id = Math.random().toString(36).substring(2);
     const ref = this.afstorage.ref(id);
-    return ref;
+    return null;
   }
 
   /**

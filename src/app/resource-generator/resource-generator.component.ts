@@ -1,13 +1,16 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 
 import { ResourceUploaderService } from '../resource-uploader.service';
+import { Resource } from '../resource';
+import { ResourceService } from '../resource.service';
 import {
   AngularFireUploadTask,
   AngularFireStorage,
   AngularFireStorageReference
 } from 'angularfire2/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-resource-generator',
@@ -36,8 +39,12 @@ export class ResourceGeneratorComponent implements OnInit {
   /**
    * @constructor
    * @param uploader The service used to upload resource
+   * @param resourceService The service used to set a resource
+   * @param router The router used to navigate through the different routes
    */
-  constructor(private afstorage: AngularFireStorage) { }
+  constructor(private afstorage: AngularFireStorage,
+              private resourceService: ResourceService,
+              private router: Router) { }
 
   /**
    * Upload a file to the remote server storage
@@ -51,6 +58,15 @@ export class ResourceGeneratorComponent implements OnInit {
     this.downloadURL = this.task.downloadURL();
     this.downloadURL
         .subscribe(() => this.downloadURL = this.ref.getDownloadURL());
+  }
+
+  /**
+   * Upload all the resource to the firebase database
+   * @param resourceFull The full content of the resource
+   */
+  public submitResource(resourceFull: Resource): void {
+    this.resourceService.addResource(resourceFull)
+        .subscribe(() => this.router.navigate(['']));
   }
 
   ngOnInit() {

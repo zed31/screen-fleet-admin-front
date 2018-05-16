@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AngularFireModule } from 'angularfire2/';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -25,6 +26,7 @@ import { ResourceImporterComponent } from './resource-importer/resource-importer
 import { ResourceListComponent } from './resource-list/resource-list.component';
 import { ResourceUploaderService } from './resource-uploader.service';
 import { ResourceGeneratorComponent } from './resource-generator/resource-generator.component';
+import { ResourceFormComponent } from './resource-form/resource-form.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { ResourceGeneratorComponent } from './resource-generator/resource-genera
     ResourceComponent,
     ResourceImporterComponent,
     ResourceListComponent,
-    ResourceGeneratorComponent
+    ResourceGeneratorComponent,
+    ResourceFormComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { ResourceGeneratorComponent } from './resource-generator/resource-genera
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    FormsModule
   ],
   providers: [TvService, CompositionService, CompositionSerializerService, ResourceService, ResourceUploaderService],
   bootstrap: [AppComponent]

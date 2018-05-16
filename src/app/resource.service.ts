@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 import { Resource } from './resource';
 
@@ -13,11 +13,13 @@ import { Resource } from './resource';
 @Injectable()
 export class ResourceService {
 
+  private resourceDbRef: AngularFireList<Resource> = null;
+
   /**
    * @returns An observable to an array of resources
    */
   getResources(): Observable<any[]> {
-    return this.afdb.list('/resources').valueChanges();
+    return this.resourceDbRef.valueChanges();
   }
 
   /**
@@ -26,6 +28,7 @@ export class ResourceService {
    * @returns An observable to the specific resource
    */
   addResource(resource: Resource): Observable<Resource> {
+    this.resourceDbRef.push(resource);
     return of(resource);
   }
 
@@ -51,6 +54,8 @@ export class ResourceService {
    * @constructor
    * @param afdb The AngularFireDatabase module
    */
-  constructor(private afdb: AngularFireDatabase) { }
+  constructor(private afdb: AngularFireDatabase) {
+    this.resourceDbRef = afdb.list('/resources');
+  }
 
 }

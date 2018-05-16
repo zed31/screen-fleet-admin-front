@@ -1,0 +1,23 @@
+<div class="container">
+    <h2>Fill the last info needed</h2>
+    <form (ngSubmit)="onSubmit()" #resourceForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" 
+              required [(ngModel)]="resourceModel.Name" name="Name" #spy>
+        </div>
+        
+        <div class="form-group">
+          <label for="resourceType">Resource type</label>
+          <select class="form-control" id="resourceType"
+              [(ngModel)]="resourceModel.Type" name="Type" required>
+            <option *ngFor="let type of typeModel" 
+                    [value]="type">{{type}}</option>
+          </select>
+        </div>
+ 
+      <button type="submit" [disabled]="!resourceForm.form.valid" 
+              class="btn btn-success">Submit</button>
+ 
+    </form>
+</div>
