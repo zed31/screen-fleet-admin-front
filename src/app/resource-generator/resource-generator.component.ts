@@ -1,0 +1,59 @@
+import { Component, OnInit, EventEmitter } from '@angular/core';
+
+import { Observable } from 'rxjs/observable';
+
+import { ResourceUploaderService } from '../resource-uploader.service';
+import {
+  AngularFireUploadTask,
+  AngularFireStorage,
+  AngularFireStorageReference
+} from 'angularfire2/storage';
+
+@Component({
+  selector: 'app-resource-generator',
+  templateUrl: './resource-generator.component.html',
+  styleUrls: ['./resource-generator.component.css']
+})
+
+/**
+ * @class ResourceGeneratorComponent
+ * Component used to generate new resource
+ */
+export class ResourceGeneratorComponent implements OnInit {
+
+  /** Observable decorator for the upload progress */
+  public uploadProgress: Observable<number> = null;
+
+  /** Observable decorator for the download url link */
+  public downloadURL: Observable<string> = null;
+
+  /** Task used to control firebase upload */
+  private task: AngularFireUploadTask = null;
+
+  /** A reference to the current storage */
+  private ref: AngularFireStorageReference = null;
+
+  /**
+   * @constructor
+   * @param uploader The service used to upload resource
+   */
+  constructor(private afstorage: AngularFireStorage) { }
+
+  /**
+   * Upload a file to the remote server storage
+   * @param event The event triggered by the file detection
+   */
+  public upload(event): void {
+    const id = Math.random().toString(36).substring(2);
+    this.ref = this.afstorage.ref(id);
+    this.task = this.ref.put(event.target.files[0]);
+    this.uploadProgress = this.task.percentageChanges();
+    this.downloadURL = this.task.downloadURL();
+    this.downloadURL
+        .subscribe(() => this.downloadURL = this.ref.getDownloadURL());
+  }
+
+  ngOnInit() {
+  }
+
+}
