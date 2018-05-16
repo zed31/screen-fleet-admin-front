@@ -47,6 +47,10 @@ export class ResourceService {
     return of(resource);
   }
 
+  /**
+   * @constructor
+   * @param afdb The AngularFireDatabase module
+   */
   constructor(private afdb: AngularFireDatabase) { }
 
 }
