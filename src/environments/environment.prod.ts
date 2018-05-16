@@ -5,7 +5,7 @@ export const environment = {
     authDomain: 'screen-fleet.firebaseapp.com',
     databaseURL: 'https://screen-fleet.firebaseio.com',
     projectId: 'screen-fleet',
-    storageBucket: '',
+    storageBucket: 'screen-fleet.appspot.com',
     messagingSenderId: '885678490253'
   }
 };

@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Composition } from '../composition';
 import { CompositionData } from '../composition-data';
 import { CompositionSerializerService } from '../composition-serializer.service';
-import { Resource, ResourceType } from '../resource';
+import { Resource } from '../resource';
 
 const ID_FIRST_DIV = 'rendering';
 const ROUTE_ID = 'id';
@@ -63,21 +63,21 @@ export class CompositionDetailComponent implements OnInit {
     }
 
     switch (resource.Type) {
-      case ResourceType.Image: {
+      case 'Image': {
         this.elementSelected = this.compositionData.insertImageToElement(
           this.elementSelected,
           resource.Url
         );
         break;
       }
-      case ResourceType.Stream: {
+      case 'Stream': {
         this.elementSelected = this.compositionData.insertStreamVideo(
           this.elementSelected,
           resource.Url
         );
         break;
       }
-      case ResourceType.Video: {
+      case 'Video': {
         this.elementSelected = this.compositionData.insertVideoToElement(
           this.elementSelected,
           resource.Url

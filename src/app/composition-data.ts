@@ -168,7 +168,7 @@ export class CompositionData {
             return null;
         }
 
-        child.innerHTML = '<video style="height: 100%; width: 100%" autoplay controls>' +
+        child.innerHTML = '<video style="height: 100%; width: 100%" name="media" autoplay controls>' +
                           '<source src="' + url + '" type="video/mp4"></video>';
         return child;
     }

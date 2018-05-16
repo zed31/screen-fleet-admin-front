@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { RESOURCES } from './mock-resource';
+import { AngularFireDatabase } from 'angularfire2/database';
+
 import { Resource } from './resource';
 
 /**
@@ -15,8 +16,8 @@ export class ResourceService {
   /**
    * @returns An observable to an array of resources
    */
-  getResources(): Observable<Resource[]> {
-    return of(RESOURCES);
+  getResources(): Observable<any[]> {
+    return this.afdb.list('/resources').valueChanges();
   }
 
   /**
@@ -46,6 +47,6 @@ export class ResourceService {
     return of(resource);
   }
 
-  constructor() { }
+  constructor(private afdb: AngularFireDatabase) { }
 
 }

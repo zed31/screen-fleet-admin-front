@@ -1,4 +1,4 @@
-import { ResourceType, Resource } from './resource';
+import { Resource } from './resource';
 
 /** Array of mocked resources */
 export const RESOURCES: Resource[] = [
@@ -8,7 +8,7 @@ export const RESOURCES: Resource[] = [
         InsertionDate: new Date(),
         UpdateTime: new Date(),
         Url: 'http://127.0.0.1:8887/img1.jpg',
-        Type: ResourceType.Image
+        Type: 'Image'
     },
     {
         RawId: '2',
@@ -16,7 +16,7 @@ export const RESOURCES: Resource[] = [
         InsertionDate: new Date(),
         UpdateTime: new Date(),
         Url: 'http://127.0.0.1:8887/img2.jpeg',
-        Type: ResourceType.Image
+        Type: 'Image'
     },
     {
         RawId: '3',
@@ -24,7 +24,7 @@ export const RESOURCES: Resource[] = [
         InsertionDate: new Date(),
         UpdateTime: new Date(),
         Url: 'http://127.0.0.1:8887/img3.jpeg',
-        Type: ResourceType.Image
+        Type: 'Image'
     },
     {
         RawId: '4',
@@ -32,7 +32,7 @@ export const RESOURCES: Resource[] = [
         InsertionDate: new Date(),
         UpdateTime: new Date(),
         Url: 'https://www.youtube.com/embed/UceaB4D0jpo?autoplay=1',
-        Type: ResourceType.Stream
+        Type: 'Stream'
     },
     {
         RawId: '5',
@@ -40,6 +40,6 @@ export const RESOURCES: Resource[] = [
         InsertionDate: new Date(),
         UpdateTime: new Date(),
         Url: 'http://127.0.0.1:8887/video1.mp4',
-        Type: ResourceType.Video
+        Type: 'Video'
     }
 ];

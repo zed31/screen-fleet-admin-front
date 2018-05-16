@@ -4,6 +4,8 @@ import { ResourceService } from '../resource.service';
 import { Resource } from '../resource';
 import { Composition } from '../composition';
 
+import { Observable } from 'rxjs/Observable';
+
 @Component({
   selector: 'app-resource-importer',
   templateUrl: './resource-importer.component.html',
@@ -20,13 +22,13 @@ export class ResourceImporterComponent implements OnInit {
   @Output() public select: EventEmitter<Resource> = new EventEmitter();
 
   /** Array of resources */
-  public resources: Resource[] = null;
+  public resources: Observable<any[]> = null;
 
   /**
    * Setup the resources by retrieving the resources from the service
    */
   setupResources(): void {
-    this.resourceService.getResources().subscribe(rsrcs => this.resources = rsrcs);
+    this.resources = this.resourceService.getResources();
   }
 
   /**
