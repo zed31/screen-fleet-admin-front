@@ -22,11 +22,20 @@ export class CompositionService {
   private COMPOSITION_ID = '/compositions';
 
   /**
+   * Insert a composition inside the database
+   * @param composition The composition given as parameter
+   */
+  public addComposition(composition: Composition): Observable<Composition> {
+    this.compositionDbRef.push(composition);
+    return of(composition);
+  }
+
+  /**
    * Get all the composition of the reference
    * @returns all the composition
    */
   public getCompositions(): Observable<any[]> {
-    return this.compositionDbRef.valueChanges();
+    return this.compositionDbRef.snapshotChanges();
   }
 
   /**
@@ -59,11 +68,8 @@ export class CompositionService {
    * @param composition The composition that needs to be removed
    * @returns an observable to the desired composition
    */
-  public removeComposition(composition: Composition): Observable<Composition> {
-    this.dbRef.list(
-      this.COMPOSITION_ID,
-      ref => ref.orderByChild('RawId').equalTo(composition.RawId)
-    ).remove();
+  public removeComposition(key: string, composition: Composition): Observable<Composition> {
+    this.dbRef.object(this.COMPOSITION_ID + '/' + key).remove();
     return of(composition);
   }
 

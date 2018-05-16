@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DBInterface } from '../dbif';
+import { DBInterface, ModelWrapper } from '../dbif';
 
 @Component({
   selector: 'app-data-list',
@@ -14,7 +14,7 @@ import { DBInterface } from '../dbif';
 export class DataListComponent implements OnInit {
 
   /** An array of list of data */
-  @Input() dataList: DBInterface[] = null;
+  @Input() dataList: ModelWrapper[] = null;
 
   /** The detail of the data */
   @Input() detailBadge = '#';

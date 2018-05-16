@@ -6,12 +6,14 @@ import { ResourceGeneratorComponent } from './resource-generator/resource-genera
 import { ScreenFleetComponent } from './screen-fleet/screen-fleet.component';
 import { CompositionDetailComponent } from './composition-detail/composition-detail.component';
 import { TvGeneratorComponent } from './tv-generator/tv-generator.component';
+import { CompositionCreatorComponent } from './composition-creator/composition-creator.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: ScreenFleetComponent },
   { path: 'composition/:id', component: CompositionDetailComponent },
-  { path: 'resource/generate', component: ResourceGeneratorComponent },
-  { path: 'tv/generate', component: TvGeneratorComponent }
+  { path: 'generate/resource', component: ResourceGeneratorComponent },
+  { path: 'generate/tv', component: TvGeneratorComponent },
+  { path: 'generate/composition', component: CompositionCreatorComponent }
 ];
 
 @NgModule({

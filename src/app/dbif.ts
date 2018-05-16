@@ -17,3 +17,17 @@ export class DBInterface {
     InsertionDate: Date;
     UpdateTime: Date;
 }
+
+
+/**
+ * @class ModelWrapper
+ * Class used to wrap the model with the firebase storage key
+ */
+export class ModelWrapper {
+    /**
+     * @constructor
+     * @param key The key initialization
+     * @param model The model
+     */
+    constructor(public key: string, public model: DBInterface) {}
+}

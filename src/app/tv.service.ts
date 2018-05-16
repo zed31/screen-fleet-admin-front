@@ -20,7 +20,7 @@ export class TvService {
    * @returns An observable to any element inside the dbref
    */
   getTVList(): Observable<any[]> {
-    return this.tvDbRef.valueChanges();
+    return this.tvDbRef.snapshotChanges();
   }
 
   /**
@@ -36,7 +36,8 @@ export class TvService {
    * Remove a tv from the database
    * @param tv The tv being removed
    */
-  removeTV(tv: DBInterface): Observable<DBInterface> {
+  removeTV(key: string, tv: DBInterface): Observable<DBInterface> {
+    this.dbref.object(this.TV_ID + '/' + key).remove();
     return of(tv);
   }
 

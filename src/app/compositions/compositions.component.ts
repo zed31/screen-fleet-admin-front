@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompositionService } from '../composition.service';
 import { Composition } from '../composition';
-import { DBInterface } from '../dbif';
+import { DBInterface, ModelWrapper } from '../dbif';
 
 @Component({
   selector: 'app-compositions',
@@ -16,7 +16,7 @@ import { DBInterface } from '../dbif';
 export class CompositionsComponent implements OnInit {
 
   /** list of composition */
-  compositions: Composition[] = null;
+  compositions: ModelWrapper[] = null;
 
   /** The detail composition */
   compositionDetail = 'composition';
@@ -33,7 +33,11 @@ export class CompositionsComponent implements OnInit {
   public getCompositions(): void {
     this.compositionService
         .getCompositions()
-        .subscribe(comps => this.compositions = comps);
+        .subscribe(comps => {
+          this.compositions = comps.map(
+            c => new ModelWrapper(c.key, c.payload.val())
+          );
+        });
   }
 
   /**
@@ -41,9 +45,9 @@ export class CompositionsComponent implements OnInit {
    * @param data The data being removed
    */
   public onRemove(data: DBInterface): void {
-    this.compositionService
-        .removeComposition(data as Composition)
-        .subscribe(_ => this.compositions = this.compositions.filter(d => d.RawId !== data.RawId));
+    // this.compositionService
+        // .removeComposition(data as Composition)
+        // .subscribe(_ => this.compositions = this.compositions.filter(d => d.RawId !== data.RawId));
   }
 
   ngOnInit() {
