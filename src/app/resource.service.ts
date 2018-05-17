@@ -6,11 +6,12 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 import { Resource } from './resource';
 
+@Injectable()
+
 /**
  * Class used to handle the communication with the resources
  * @class ResourceService
  */
-@Injectable()
 export class ResourceService {
 
   /** Reference of the resource */
@@ -23,7 +24,7 @@ export class ResourceService {
    * @returns An observable to an array of resources
    */
   getResources(): Observable<any[]> {
-    return this.resourceDbRef.valueChanges();
+    return this.resourceDbRef.snapshotChanges();
   }
 
   /**
@@ -38,10 +39,12 @@ export class ResourceService {
 
   /**
    * Remove a specific resource from the array
+   * @param key The key of the removed resource
    * @param resource The resource being removed from the array
    * @returns an observable to a specific resource
    */
-  removeResource(resource: Resource): Observable<Resource> {
+  removeResource(key: string, resource: Resource): Observable<Resource> {
+    this.afdb.object(this.RESSOURCE_ID + '/' + key).remove();
     return of(resource);
   }
 

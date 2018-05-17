@@ -35,6 +35,7 @@ import { TvDetailComponent } from './tv-detail/tv-detail.component';
 import { CompositionImporterComponent } from './composition-importer/composition-importer.component';
 import { TvApiService } from './tv-api.service';
 import { ResourcesComponent } from './resources/resources.component';
+import { DataSimpleListComponent } from './data-simple-list/data-simple-list.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ResourcesComponent } from './resources/resources.component';
     CompositionCreatorComponent,
     TvDetailComponent,
     CompositionImporterComponent,
-    ResourcesComponent
+    ResourcesComponent,
+    DataSimpleListComponent
   ],
   imports: [
     BrowserModule,
