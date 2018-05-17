@@ -22,13 +22,14 @@ export class ResourceImporterComponent implements OnInit {
   @Output() public select: EventEmitter<Resource> = new EventEmitter();
 
   /** Array of resources */
-  public resources: Observable<any[]> = null;
+  public resources: Resource[] = null;
 
   /**
    * Setup the resources by retrieving the resources from the service
    */
   setupResources(): void {
-    this.resources = this.resourceService.getResources();
+    this.resourceService.getResources()
+        .subscribe(v => this.resources = v.map(snapshot => snapshot.payload.val()));
   }
 
   /**

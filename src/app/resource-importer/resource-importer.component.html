@@ -1,3 +1,6 @@
 <h2>Resources list</h2>
-<app-resource-list [resources]='resources | async' (select)='onSelect($event)'>
-</app-resource-list>
+<ul>
+    <li *ngFor='let resource of resources' (click)='onSelect(resource)'>
+        {{resource.Name}}
+    </li>
+</ul>

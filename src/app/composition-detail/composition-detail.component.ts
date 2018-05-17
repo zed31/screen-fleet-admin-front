@@ -57,6 +57,26 @@ export class CompositionDetailComponent implements OnInit {
     private location: Location
   ) { }
 
+  /**
+   * Remove the asset from the list of asset
+   * @param assets The list of assets
+   * @param link The link of the resource
+   */
+  private removeAssetFrom(assets: Asset[], link: string): Asset[] {
+    for (let i = 0; i < assets.length; ++i) {
+      const value = assets[i];
+      if (value.link === link) {
+        assets.splice(i, 1);
+        return assets;
+      }
+    }
+    return assets;
+  }
+
+  /**
+   * Remove specific resource from the composition list
+   * @param lastElement The last selected element
+   */
   public removeResource(lastElement: HTMLElement): void {
     const childs: Array<HTMLElement> = [].slice.call(lastElement.children);
     if (childs.length === 0) {
@@ -66,9 +86,7 @@ export class CompositionDetailComponent implements OnInit {
     childs.forEach(child => {
       const value = child.getAttribute('src');
       if (value && this.composition.assets) {
-        this.composition.assets = this.composition.assets.filter(
-          asset => asset.link !== value
-        );
+        this.composition.assets = this.removeAssetFrom(this.composition.assets, value);
       }
     });
   }
@@ -107,9 +125,10 @@ export class CompositionDetailComponent implements OnInit {
         break;
       }
     }
-    if (this.composition.assets) {
+    if (this.composition.assets && resource.Type !== 'Stream') {
       this.composition.assets.push(new Asset(resource.Name, resource.Url));
-    } else {
+      console.log(this.composition.assets);
+    } else if (!this.composition.assets && resource.Type !== 'Stream') {
       this.composition.assets = [new Asset(resource.Name, resource.Url)];
     }
   }

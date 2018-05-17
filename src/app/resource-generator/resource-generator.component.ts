@@ -30,6 +30,12 @@ export class ResourceGeneratorComponent implements OnInit {
   /** Observable decorator for the download url link */
   public downloadURL: Observable<string> = null;
 
+  /** The download src of the firebase resource */
+  public downloadSrc: string = null;
+
+  /** The link of a stream */
+  public streamLink: string = null;
+
   /** Task used to control firebase upload */
   private task: AngularFireUploadTask = null;
 
@@ -38,6 +44,12 @@ export class ResourceGeneratorComponent implements OnInit {
 
   /** The name of the resource */
   private resourceName: string = null;
+
+  /** The type of the resource */
+  private resourceType: string = null;
+
+  /** Boolean to check if the user want to set a stream or classic file */
+  private streamSelected = false;
 
   /**
    * @constructor
@@ -61,9 +73,21 @@ export class ResourceGeneratorComponent implements OnInit {
     this.downloadURL = this.task.downloadURL();
     this.downloadURL
         .subscribe(() => {
-          this.downloadURL = this.ref.getDownloadURL();
-          this.resourceName = event.target.files[0].name;
+          this.ref.getDownloadURL()
+              .subscribe(v => {
+                this.downloadSrc = v;
+                this.resourceName = event.target.files[0].name;
+              });
         });
+  }
+
+  /**
+   * Submit a link to create a stream resource
+   */
+  public submitLink(): void {
+    this.downloadSrc = this.streamLink;
+    this.resourceType = 'Stream';
+    this.resourceName = Math.random().toString(36).substring(2);
   }
 
   /**
@@ -73,6 +97,20 @@ export class ResourceGeneratorComponent implements OnInit {
   public submitResource(resourceFull: Resource): void {
     this.resourceService.addResource(resourceFull)
         .subscribe(() => this.router.navigate(['']));
+  }
+
+  /**
+   * Set the input as stream URL
+   */
+  public setInputAsStream(): void {
+    this.streamSelected = true;
+  }
+
+  /**
+   * Set the input as File URL
+   */
+  public setInputAsFile(): void {
+    this.streamSelected = false;
   }
 
   ngOnInit() {

@@ -4,8 +4,32 @@
       Upload your file before creating the resource
     </div>
     <div class="card-body">
-      <h5 class="card-title">Select a file for upload:</h5>
-      <input type="file" (change)="upload($event)" />
+      <div *ngIf='!streamSelected'>
+        <h5 class="card-title">Select a file for upload:</h5>
+        <input type="file" (change)="upload($event)" />  
+      </div>
+
+      <div *ngIf='streamSelected'>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">URL</span>
+          </div>
+          <input type="text" class="form-control" [(ngModel)]='streamLink'>
+        </div>
+      </div>
+
+      <div *ngIf='streamSelected'>
+        <button type="button" (click)='setInputAsFile()'
+                class="btn btn-primary">Upload file</button>
+        <button type="button" (click)='submitLink()'
+                class="btn btn-primary">Submit link</button>
+      </div>
+
+      <div *ngIf='!streamSelected'>
+        <button type="button" (click)='setInputAsStream()'
+                class="btn btn-primary">Upload stream</button>
+      </div>
+
     </div>
     <div class="progress">
         <div class="progress-bar progress-bar-striped bg-success" 
@@ -17,11 +41,12 @@
     </div>
   </div>
 </div>
-<div *ngIf="downloadURL | async; let downloadSrc">
+<div *ngIf="downloadSrc">
   <div  class="alert alert-info" role="alert">
       File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>
   </div>
   <app-resource-form (submitEvent)="submitResource($event)" 
                       [downloadLink]="downloadSrc"
-                      [resourceName]="resourceName"></app-resource-form>
+                      [resourceName]="resourceName"
+                      [resourceType]="resourceType"></app-resource-form>
 </div>
