@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { TvService } from '../tv.service';
 import { CompositionService } from '../composition.service';
 
-import { Composition } from '../composition';
+import { Composition, Asset } from '../composition';
 import { TV } from '../tv';
+import { ScreenFleetTV } from '../screenfleet-tv';
 import { ModelWrapper } from '../dbif';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -63,11 +64,53 @@ export class TvDetailComponent implements OnInit {
     this.loadHtmlContent(this.tv.Composition);
   }
 
+  /**
+   * Map the links with the desired file
+   * @param assets The list of assets
+   * @param link The link compared
+   * @returns a string containing the name of the resource
+   */
+  private mapWithAsset(assets: Asset[], link: string): string {
+    const prettyLink = link.replace(/&amp;/g, '&');
+    const asset = assets.find((r: Asset) => r.link === prettyLink);
+    return asset ? asset.name : undefined;
+  }
+
+  /**
+   * Format html content
+   * @param assets The asset list
+   * @param html The html string content
+   * @returns a string containing html
+   */
+  private formatHtml(assets: Asset[], html: string): string {
+    let v = (' ' + html).slice(1);
+    const r = /src=\"([^\"])+.\"/g;
+    const matchList = v.match(r);
+    matchList.forEach(element => {
+      if (assets) {
+        const url = element.match(/http[s]\:\/\/([^"])+/)[0];
+        const asset = this.mapWithAsset(assets, url);
+        if (asset) {
+          v = v.replace(element, 'src="../resource/' + asset + '"');
+        }
+      }
+    });
+    return v;
+  }
+
+  /**
+   * Submit changes to firebase
+   */
   private submitChanges(): void {
     this.tvService.updateTv(this.key, this.tv)
         .subscribe(t => {
-          this.tv = t;
-          this.tvApiService.postNewTv(this.tv).subscribe(_ => console.log('done'));
+          const screenFleetTv = new ScreenFleetTV(t.Name, t.Ip, t.Composition, t.Assets);
+          screenFleetTv.html = this.formatHtml(screenFleetTv.assets, screenFleetTv.html);
+          if (!screenFleetTv.assets) {
+            screenFleetTv.assets = [];
+          }
+          this.tvApiService.postNewTv(screenFleetTv)
+              .subscribe(_ => this.tv = t);
         });
   }
 

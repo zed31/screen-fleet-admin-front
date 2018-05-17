@@ -10,7 +10,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 
 /** Url of the post api */
-const URL = 'http://localhost:3000/view/tv/new';
+const URL = 'http://localhost:3000/view/tv';
 
 /** Constent-type of the header */
 const CONTENT_TYPE = 'application/json';
@@ -46,11 +46,9 @@ private handleError<T> (operation = 'operation', result?: T) {
    * Post a tv to the screen fleet API
    * @param tv The tv being posted
    */
-  public postNewTv(tv: TV): Observable<ScreenFleetTV> {
-    const screenFleetTv = new ScreenFleetTV(tv.Name, tv.Ip, tv.Composition, tv.Assets);
-    console.log('Post request to a new tv');
-    return this.httpClient.post<ScreenFleetTV>(
-      URL, screenFleetTv, this.httpOptions
+  public postNewTv(tv: ScreenFleetTV): Observable<ScreenFleetTV> {
+    return this.httpClient.put<ScreenFleetTV>(
+      URL, tv, this.httpOptions
     ).pipe(
         tap(_ => console.log('Request done successfully')),
         catchError((error: any) => {
