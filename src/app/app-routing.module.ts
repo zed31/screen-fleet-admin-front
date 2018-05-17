@@ -7,10 +7,12 @@ import { ScreenFleetComponent } from './screen-fleet/screen-fleet.component';
 import { CompositionDetailComponent } from './composition-detail/composition-detail.component';
 import { TvGeneratorComponent } from './tv-generator/tv-generator.component';
 import { CompositionCreatorComponent } from './composition-creator/composition-creator.component';
+import { TvDetailComponent } from './tv-detail/tv-detail.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: ScreenFleetComponent },
   { path: 'composition/:id', component: CompositionDetailComponent },
+  { path: 'tvs/:id', component: TvDetailComponent },
   { path: 'generate/resource', component: ResourceGeneratorComponent },
   { path: 'generate/tv', component: TvGeneratorComponent },
   { path: 'generate/composition', component: CompositionCreatorComponent }

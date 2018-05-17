@@ -19,15 +19,26 @@ export class TvService {
   /**
    * @returns An observable to any element inside the dbref
    */
-  getTVList(): Observable<any[]> {
+  public getTVList(): Observable<any[]> {
     return this.tvDbRef.snapshotChanges();
+  }
+
+  /**
+   * Get a specific tv that matches the specific id
+   * @param id The RawId of the tv
+   * @returns an observable to the snapshots
+   */
+  public getSpecificTv(id: string): Observable<any[]> {
+    return this.dbref
+                .list(this.TV_ID, ref => ref.orderByChild('RawId').equalTo(id))
+                .snapshotChanges();
   }
 
   /**
    * Add tv to the database
    * @param tv The tv object that is pushed to the database
    */
-  addTV(tv: TV): Observable<TV> {
+  public addTV(tv: TV): Observable<TV> {
     this.tvDbRef.push(tv);
     return of(tv);
   }
@@ -36,7 +47,7 @@ export class TvService {
    * Remove a tv from the database
    * @param tv The tv being removed
    */
-  removeTV(key: string, tv: DBInterface): Observable<DBInterface> {
+  public removeTV(key: string, tv: DBInterface): Observable<DBInterface> {
     this.dbref.object(this.TV_ID + '/' + key).remove();
     return of(tv);
   }

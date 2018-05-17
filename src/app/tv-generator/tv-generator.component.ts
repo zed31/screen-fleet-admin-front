@@ -3,6 +3,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { TvService } from '../tv.service';
 import { TV } from '../tv';
 import { Router } from '@angular/router';
+import { defaultHtmlContent } from '../default-html-content';
 
 @Component({
   selector: 'app-tv-generator',
@@ -26,6 +27,7 @@ export class TvGeneratorComponent implements OnInit {
   constructor(private tvService: TvService, private router: Router) {
     this.tvModel.InsertionDate = new Date();
     this.tvModel.UpdateTime = new Date();
+    this.tvModel.Composition = defaultHtmlContent;
   }
 
   /**

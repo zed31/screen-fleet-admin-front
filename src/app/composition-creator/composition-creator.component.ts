@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompositionService } from '../composition.service';
 import { Router } from '@angular/router';
 import { Composition } from '../composition';
+import { defaultHtmlContent } from '../default-html-content';
 
 @Component({
   selector: 'app-composition-creator',
@@ -20,9 +21,7 @@ export class CompositionCreatorComponent implements OnInit {
   private id: string = Math.random().toString(36).substring(2);
 
   /** Default HTML content of the composition */
-  private defaultHtmlContent = '<div id="one" style="border: 2px solid black;' +
-                               ' display: grid; max-height: 600px; height: 600px; overflow: hidden">' +
-                               'Hello World!</div>';
+  private defaultHtmlContent = defaultHtmlContent;
 
   /** Template model */
   public compositionModel = new Composition(this.id);
