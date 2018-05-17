@@ -1,7 +1,12 @@
 <h2>TV detail</h2>
 <div style="display: grid; grid-template-columns: 1fr 1fr">
+  <app-composition-importer (select)="onSelect($event)"></app-composition-importer>
   <div>
     <h3>Composition of the tv:</h3>
-    <div id="comp-rendering"></div>
+    <div id="comp-rendering" style="height: 600px; max-height: 600px; border: 2px solid black"></div>
   </div>
 </div>
+
+<button type="submit" 
+        class="btn btn-success"
+        (click)="submitChanges()">Save Changes</button>

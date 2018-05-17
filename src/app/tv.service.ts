@@ -24,6 +24,17 @@ export class TvService {
   }
 
   /**
+   * Update the composition
+   * @param key The key of the child
+   * @param tv the updated composition
+   * @returns an observable to a composition
+   */
+  public updateTv(key: string, tv: TV): Observable<TV> {
+    this.tvDbRef.update(key, tv);
+    return of(tv);
+  }
+
+  /**
    * Get a specific tv that matches the specific id
    * @param id The RawId of the tv
    * @returns an observable to the snapshots

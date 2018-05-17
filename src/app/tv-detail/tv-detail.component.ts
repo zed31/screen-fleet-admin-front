@@ -25,7 +25,14 @@ const ROUTE_ID = 'id';
 export class TvDetailComponent implements OnInit {
 
   /** The detailed tv */
-  public tv: ModelWrapper;
+  public tv: TV;
+
+  private key: string;
+
+  private loadHtmlContent(htmlContent: string) {
+    const element = document.getElementById('comp-rendering') as HTMLElement;
+    element.innerHTML = htmlContent;
+  }
 
   /**
    * Get the detailed tv from the database
@@ -35,11 +42,24 @@ export class TvDetailComponent implements OnInit {
     this.tvService.getSpecificTv(id)
         .subscribe(snapshots => {
           const snapshot = snapshots[0];
-          this.tv = new ModelWrapper(snapshot.key, snapshot.payload.val());
-          const element = document.getElementById('comp-rendering') as HTMLElement;
-          const tv = this.tv.model as TV;
-          element.innerHTML = tv.Composition;
+          this.tv = snapshot.payload.val() as TV;
+          this.key = snapshot.key as string;
+          this.loadHtmlContent(this.tv.Composition);
         });
+  }
+
+  /**
+   * Select a composition to change the HTML content of the TV
+   * @param composition The selected composition
+   */
+  private onSelect(composition: Composition): void {
+    this.tv.Composition = composition.HtmlContent;
+    this.loadHtmlContent(this.tv.Composition);
+  }
+
+  private submitChanges(): void {
+    this.tvService.updateTv(this.key, this.tv)
+        .subscribe(t => this.tv = t);
   }
 
   /**
