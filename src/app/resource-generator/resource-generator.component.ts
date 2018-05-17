@@ -36,6 +36,9 @@ export class ResourceGeneratorComponent implements OnInit {
   /** A reference to the current storage */
   private ref: AngularFireStorageReference = null;
 
+  /** The name of the resource */
+  private resourceName: string = null;
+
   /**
    * @constructor
    * @param uploader The service used to upload resource
@@ -57,7 +60,10 @@ export class ResourceGeneratorComponent implements OnInit {
     this.uploadProgress = this.task.percentageChanges();
     this.downloadURL = this.task.downloadURL();
     this.downloadURL
-        .subscribe(() => this.downloadURL = this.ref.getDownloadURL());
+        .subscribe(() => {
+          this.downloadURL = this.ref.getDownloadURL();
+          this.resourceName = event.target.files[0].name;
+        });
   }
 
   /**

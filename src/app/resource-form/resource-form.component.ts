@@ -17,6 +17,9 @@ export class ResourceFormComponent implements OnInit {
   /** Download link of the resource url */
   @Input() private downloadLink: string;
 
+  /** The resource name of the downloaded file */
+  @Input() private resourceName: string;
+
   /** Event used to submit an output event to the caller */
   @Output() private submitEvent: EventEmitter<Resource> = new EventEmitter();
 
@@ -46,6 +49,7 @@ export class ResourceFormComponent implements OnInit {
    */
   ngOnInit() {
     this.resourceModel.Url = this.downloadLink;
+    this.resourceModel.Name = this.resourceName;
   }
 
 }

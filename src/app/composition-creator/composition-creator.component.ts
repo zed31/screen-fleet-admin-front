@@ -34,6 +34,7 @@ export class CompositionCreatorComponent implements OnInit {
   constructor(private compositionService: CompositionService,
               private router: Router) {
     this.compositionModel.HtmlContent = this.defaultHtmlContent;
+    this.compositionModel.assets = [];
   }
 
   /**

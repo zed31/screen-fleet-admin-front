@@ -9,6 +9,8 @@ import { ModelWrapper } from '../dbif';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { TvApiService } from '../tv-api.service';
+
 const ROUTE_ID = 'id';
 
 @Component({
@@ -54,23 +56,32 @@ export class TvDetailComponent implements OnInit {
    */
   private onSelect(composition: Composition): void {
     this.tv.Composition = composition.HtmlContent;
+    this.tv.Assets = composition.assets;
+    if (!this.tv.Assets) {
+      this.tv.Assets = [];
+    }
     this.loadHtmlContent(this.tv.Composition);
   }
 
   private submitChanges(): void {
     this.tvService.updateTv(this.key, this.tv)
-        .subscribe(t => this.tv = t);
+        .subscribe(t => {
+          this.tv = t;
+          this.tvApiService.postNewTv(this.tv).subscribe(_ => console.log('done'));
+        });
   }
 
   /**
    * @constructor
    * @param tvService The service used to handle the Tvs
    * @param compositionService The service used to handle the composition
+   * @param tvApiService The Service used to handle screen fleet api
    * @param route the route information
    * @param location the location information
    */
   constructor(private tvService: TvService,
               private compositionService: CompositionService,
+              private tvApiService: TvApiService,
               private route: ActivatedRoute,
               private location: Location) { }
 

@@ -3,10 +3,11 @@ import { CompositionService } from '../composition.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
-import { Composition } from '../composition';
+import { Composition, Asset } from '../composition';
 import { CompositionData } from '../composition-data';
 import { CompositionSerializerService } from '../composition-serializer.service';
 import { Resource } from '../resource';
+import { last } from '@angular/router/src/utils/collection';
 
 const ID_FIRST_DIV = 'rendering';
 const ROUTE_ID = 'id';
@@ -56,6 +57,22 @@ export class CompositionDetailComponent implements OnInit {
     private location: Location
   ) { }
 
+  public removeResource(lastElement: HTMLElement): void {
+    const childs: Array<HTMLElement> = [].slice.call(lastElement.children);
+    if (childs.length === 0) {
+      return ;
+    }
+
+    childs.forEach(child => {
+      const value = child.getAttribute('src');
+      if (value && this.composition.assets) {
+        this.composition.assets = this.composition.assets.filter(
+          asset => asset.link !== value
+        );
+      }
+    });
+  }
+
 
   /**
    * Setup the video inside the selected HTMLElement
@@ -65,6 +82,7 @@ export class CompositionDetailComponent implements OnInit {
     if (!this.elementSelected) {
       return ;
     }
+    this.removeResource(this.elementSelected);
 
     switch (resource.Type) {
       case 'Image': {
@@ -89,6 +107,11 @@ export class CompositionDetailComponent implements OnInit {
         break;
       }
     }
+    if (this.composition.assets) {
+      this.composition.assets.push(new Asset(resource.Name, resource.Url));
+    } else {
+      this.composition.assets = [new Asset(resource.Name, resource.Url)];
+    }
   }
 
   /**
@@ -110,6 +133,7 @@ export class CompositionDetailComponent implements OnInit {
     if (!this.elementSelected) {
       return ;
     }
+    this.removeResource(this.elementSelected);
     this.elementSelected = this.compositionData.splitHorizontal(this.elementSelected) as HTMLElement;
     const childs: Array<HTMLElement> = [].slice.call(this.elementSelected.children);
 
@@ -127,6 +151,7 @@ export class CompositionDetailComponent implements OnInit {
     if (!this.elementSelected) {
       return ;
     }
+    this.removeResource(this.elementSelected);
     this.compositionData.splitVertical(this.elementSelected);
   }
 

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { COMPOSITIONS } from './mock-composition';
 import { Composition } from './composition';
 
 import { Observable } from 'rxjs/Observable';
