@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { AngularFireModule } from 'angularfire2/';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -31,6 +33,7 @@ import { TvGeneratorComponent } from './tv-generator/tv-generator.component';
 import { CompositionCreatorComponent } from './composition-creator/composition-creator.component';
 import { TvDetailComponent } from './tv-detail/tv-detail.component';
 import { CompositionImporterComponent } from './composition-importer/composition-importer.component';
+import { TvApiService } from './tv-api.service';
 
 @NgModule({
   declarations: [
@@ -58,9 +61,10 @@ import { CompositionImporterComponent } from './composition-importer/composition
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [TvService, CompositionService, CompositionSerializerService, ResourceService, ResourceUploaderService],
+  providers: [TvService, CompositionService, CompositionSerializerService, ResourceService, ResourceUploaderService, TvApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
