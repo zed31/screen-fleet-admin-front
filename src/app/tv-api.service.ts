@@ -43,11 +43,11 @@ private handleError<T> (operation = 'operation', result?: T) {
 }
 
   /**
-   * Post a tv to the screen fleet API
+   * Put a tv to the screen fleet API
    * @param tv The tv being posted
    */
-  public postNewTv(tv: ScreenFleetTV): Observable<ScreenFleetTV> {
-    return this.httpClient.put<ScreenFleetTV>(
+  public putNewTv(tv: ScreenFleetTV): Observable<ScreenFleetTV> {
+      return this.httpClient.put<ScreenFleetTV>(
       URL, tv, this.httpOptions
     ).pipe(
         tap(_ => console.log('Request done successfully')),

@@ -109,7 +109,7 @@ export class TvDetailComponent implements OnInit {
           if (!screenFleetTv.assets) {
             screenFleetTv.assets = [];
           }
-          this.tvApiService.postNewTv(screenFleetTv)
+          this.tvApiService.putNewTv(screenFleetTv)
               .subscribe(_ => this.tv = t);
         });
   }
