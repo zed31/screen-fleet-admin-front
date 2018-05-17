@@ -19,7 +19,7 @@ export class TvsComponent implements OnInit {
   tvs: ModelWrapper[] = null;
 
   /** Detail route of the TV */
-  tvDetail = 'composition';
+  tvDetail = 'tvs';
 
   /**
    * @constructor
