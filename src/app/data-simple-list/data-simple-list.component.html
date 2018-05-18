@@ -1,7 +1,20 @@
-<ul class="data-db">
-  <li *ngFor="let data of dataList"
-    [class.selected]="data === selectedData">
-      <span class="badge">{{data.model.RawId}}</span> 
-      {{data.model.Name}} <span (click)="onRemove(data)" class="remove">(X)</span>
-  </li>
-</ul>
+<div class="card-group">
+  <div class="card" *ngFor='let resource of resources' style='margin-right: 2%;'>
+    <div *ngIf='isImage(resource)' style="max-height: 133px; overflow: hidden">
+        <img class="card-img-top" src="{{resource.Url}}" alt="Card image cap">
+    </div>
+
+    <div *ngIf='!isImage(resource)' style="max-height: 133px; overflow: hidden">
+        <img style="overflow: hidden" class="card-img-top" [src]="'assets/resource/stream-gradient.png'" alt="Card image cap">
+    </div>
+
+    <div class="card-body">
+      <h5 class="card-title">{{resource.Name}}</h5>
+    </div>
+
+    <div class="card-body">
+      <a href="#" class="btn btn-primary">Remove</a>
+    </div>
+
+  </div>
+</div>

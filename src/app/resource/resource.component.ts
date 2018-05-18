@@ -19,6 +19,9 @@ export class ResourceComponent implements OnInit {
   /** Array of resources */
   public resources: ModelWrapper[] = null;
 
+  /** Array of resources to display */
+  public resourcesDisplay: Resource[] = null;
+
   /** Uri of the resource detail */
   public resourceDetail = 'resources';
 
@@ -36,6 +39,7 @@ export class ResourceComponent implements OnInit {
     this.resourceService.getResources()
         .subscribe(rsrcs => {
           this.resources = rsrcs.map(r => new ModelWrapper(r.key, r.payload.val()));
+          this.resourcesDisplay = this.resources.map(v => v.model as Resource);
         });
   }
 
@@ -43,9 +47,13 @@ export class ResourceComponent implements OnInit {
    * Resource to remove
    * @param toRemove The model wrapper to remove
    */
-  public onRemove(toRemove: ModelWrapper) {
+  public onRemove(toRemove: Resource) {
+    const toRemoveModel = this.resources.find(r => r.model.RawId === toRemove.RawId);
+    if (!toRemoveModel) {
+      return ;
+    }
     this.resourceService
-        .removeResource(toRemove.key, toRemove.model as Resource);
+        .removeResource(toRemoveModel.key, toRemove);
   }
 
   /**
