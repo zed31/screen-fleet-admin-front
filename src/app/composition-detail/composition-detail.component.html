@@ -1,12 +1,24 @@
-<h2>Composition Detail</h2>
-<div id="rendering" style="display: grid; grid-template-columns: 50% 50%">
+<h2>DETAIL OF THE COMPOSITION</h2>
+<div id="rendering" 
+    style="margin-top: 2%; margin-bottom: 2%; display: grid; grid-template-columns: 50% 50%">
     <div *ngIf='elementSelected'>
-        <app-resource-importer (select)='setupResource($event)'>
-        </app-resource-importer>
-        <ul>
-            <li (click)='splitHorizontal()'>Horizontal split</li>
-            <li (click)='splitVertical()'>Vertical split</li>
-        </ul>
+        <div style="margin-bottom: 2%">
+            <app-resource-importer (select)='setupResource($event)'>
+            </app-resource-importer>            
+        </div>
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                AVAILABLE SPLITS
+            </div>
+            <ul class="list-group list-group-flush">
+                    <li (click)='splitHorizontal()'
+                         style="cursor: pointer"
+                         class="list-group-item">Horizontal</li>
+                    <li (click)='splitVertical()'
+                        style="cursor: pointer"
+                        class="list-group-item">Vertical</li>
+            </ul>
+        </div>
     </div>
 </div>
 <button type="submit" 
