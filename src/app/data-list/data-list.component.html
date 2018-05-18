@@ -2,8 +2,10 @@
     <div class="card col-sm2" style="margin-right: 1%;" *ngFor='let data of dataList'>
       <div class="card-body">
         <h5 class="card-title">{{data.model.Name}}</h5>
-        <a routerLink="{{detailBadge}}/{{data.model.RawId}}" class="card-link">Detail</a>
-        <a href="#" class="card-link">Remove</a>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <a routerLink="{{detailBadge}}/{{data.model.RawId}}" class="btn btn-secondary">Detail</a>
+          <button (click)='onRemove(data)' type="button" class="btn btn-secondary">Remove</button>
+        </div>
       </div>
     </div>    
 </div>
