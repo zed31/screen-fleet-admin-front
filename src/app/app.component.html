@@ -1,7 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-</div>
-<router-outlet></router-outlet>
+<main role="main">
+    <div class="jumbotron">
+      <h1 class="display-4">Welcome to {{title}}</h1>
+      <p class="lead">From there, you can handle your compositions, TVs and Resources</p>
+      <hr class="my-4">
+      <p>Try to create a resource / tv / composition by clicking on the (+) label</p>
+    </div>      
+    <router-outlet></router-outlet>
+</main>

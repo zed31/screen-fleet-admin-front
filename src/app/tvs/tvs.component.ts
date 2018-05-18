@@ -16,10 +16,13 @@ import { DBInterface, ModelWrapper } from '../dbif';
 export class TvsComponent implements OnInit {
 
   /** The tvs wrapped inside the firebase wrapper */
-  tvs: ModelWrapper[] = null;
+  public tvs: ModelWrapper[] = null;
 
   /** Detail route of the TV */
-  tvDetail = 'tvs';
+  public tvDetail = 'tvs';
+
+  /** Route to generate a tv */
+  public tvAddRoute = '/generate/tv';
 
   /**
    * @constructor

@@ -25,6 +25,9 @@ export class ResourceComponent implements OnInit {
   /** Uri of the resource detail */
   public resourceDetail = 'resources';
 
+  /** Route used to add resource */
+  public resourceAddRoute = '/generate/resource';
+
   /**
    * Constructor of the Resource component
    * @constructor

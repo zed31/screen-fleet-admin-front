@@ -1,9 +1,9 @@
-<ul class="data-db">
-  <li *ngFor="let data of dataList"
-    [class.selected]="data === selectedData">
-    <a routerLink="{{detailBadge}}/{{data.model.RawId}}">
-      <span class="badge" (click)="onSelect(data.model)">{{data.model.RawId}}</span> 
-      {{data.model.Name}} <span (click)="onRemove(data)" class="remove">(X)</span>
-    </a>
-  </li>
-</ul>
+<div class="row">
+    <div class="card col-sm2" style="margin-right: 1%;" *ngFor='let data of dataList'>
+      <div class="card-body">
+        <h5 class="card-title">{{data.model.Name}}</h5>
+        <a routerLink="{{detailBadge}}/{{data.model.RawId}}" class="card-link">Detail</a>
+        <a href="#" class="card-link">Remove</a>
+      </div>
+    </div>    
+</div>

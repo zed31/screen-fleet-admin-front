@@ -16,10 +16,13 @@ import { DBInterface, ModelWrapper } from '../dbif';
 export class CompositionsComponent implements OnInit {
 
   /** list of composition */
-  compositions: ModelWrapper[] = null;
+  public compositions: ModelWrapper[] = null;
 
   /** The detail composition */
-  compositionDetail = 'composition';
+  public compositionDetail = 'composition';
+
+  /** The route to add composition */
+  public compositionAddRoute = '/generate/composition';
 
   /**
    * @constructor

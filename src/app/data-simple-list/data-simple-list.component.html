@@ -1,5 +1,5 @@
-<div class="card-group">
-  <div class="card" *ngFor='let resource of resources' style='margin-right: 2%;'>
+<div class="card-deck">
+  <div class="card" *ngFor='let resource of resources'>
     <div *ngIf='isImage(resource)' style="max-height: 133px; overflow: hidden">
         <img class="card-img-top" src="{{resource.Url}}" alt="Card image cap">
     </div>
@@ -13,7 +13,7 @@
     </div>
 
     <div class="card-body">
-      <a href="#" class="btn btn-primary">Remove</a>
+      <button (click)='onRemove(resource)' class="btn btn-primary">Remove</button>
     </div>
 
   </div>
