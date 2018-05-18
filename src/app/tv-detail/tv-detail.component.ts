@@ -30,8 +30,13 @@ export class TvDetailComponent implements OnInit {
   /** The detailed tv */
   public tv: TV;
 
+  /** The firebase key of the TV */
   private key: string;
 
+  /**
+   * Load the content of the html inside the rendering preview
+   * @param htmlContent The content of the html
+   */
   private loadHtmlContent(htmlContent: string) {
     const element = document.getElementById('comp-rendering') as HTMLElement;
     element.innerHTML = htmlContent;
@@ -86,6 +91,9 @@ export class TvDetailComponent implements OnInit {
     let v = (' ' + html).slice(1);
     const r = /src=\"([^\"])+.\"/g;
     const matchList = v.match(r);
+    if (!matchList) {
+      return html;
+    }
     matchList.forEach(element => {
       if (assets) {
         const url = element.match(/http[s]\:\/\/([^"])+/)[0];

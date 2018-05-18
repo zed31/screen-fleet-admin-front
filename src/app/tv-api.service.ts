@@ -10,7 +10,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 
 /** Url of the post api */
-const URL = 'http://localhost:3000/view/tv';
+const URL = 'http://10.15.192.65:3000/view/tv';
 
 /** Constent-type of the header */
 const CONTENT_TYPE = 'application/json';
