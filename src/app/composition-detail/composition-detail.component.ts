@@ -139,7 +139,7 @@ export class CompositionDetailComponent implements OnInit {
    */
   private selectElement(event: MouseEvent): void {
     event.stopPropagation();
-    this.elementSelected = event.srcElement as HTMLElement;
+    this.elementSelected = event.srcElement as HTMLElement || event.target as HTMLElement;
     if (this.elementSelected.id.includes('resource')) {
       this.elementSelected = this.elementSelected.parentElement as HTMLElement;
     }
